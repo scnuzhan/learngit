@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+	<meta charset="UTF-8">
+	<title>数据结构顺序存储JavaScript描述</title>
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+<style>
+
+	div.name {
+		/*display: block;*/
+		padding: 10px;
+	}
+	div.index {
+		/*display: block;*/
+		padding: 10px;
+	}
+	div.button {
+		/*display: block;*/
+		margin-left: 30px;
+		padding: 10px;
+	}
+	div.button input {
+		margin: 0 5px;
+	}
+
+	main h3 {
+	   margin-bottom: 0;
+	}
+	main p {
+	   margin-top: -0.5em;
+	}
+
+</style>
+<body>
+	<header>
+		<h1>数据结构作业（JavaScript描述）</h1>
+	</header>
+	<aside class="sidebar">
+		<nav class="clear">
+			<ul>
+				<li><a href="file:///C:/Users/zhan/Desktop/d&s/Queue_JavaScript.html">顺序存储操作</a></li>
+				<li><a href="file:///C:/Users/zhan/Desktop/d&s/LList_JavaScript.html">单链表操作</a></li>
+				<li><a href="file:///C:/Users/zhan/Desktop/d&s/DLList_JavaScript.html">双链表操作</a></li>
+			</ul>
+		</nav>
+	    <h3>顺序存储基本操作</h3>
+	    <div class="name">
+	    	<label for="name">城市</label>
+	    	<input type="text" id="name" placeholder="广州"/>
+	    </div>
+	    <div class="index">
+	    	<label for="index">位置</label>
+	    	<input type="text" placeholder="从0开始" id="index"/>
+	    </div>
+	    <div class="button">
+	    	<input type="button" value="插入" id="insert">
+	    	<input type="button" value="获取" id="get">
+	    	<input type="button" value="删除" id="del">
+	    </div>
+	</aside>
+	
+	<main>
+		<h3>结果：</h3>
+		<p id="result"></p>
+	</main>
+	
+	<footer>
+		<p>詹前壕&copy;</p>
+	</footer>
+
+	<script>
+
+	// 初始化线性表并获取DOM元素
+	var sqList=[],
+	    insert=document.getElementById('insert'),
+	    result=document.getElementById('result'),
+	    getBtn=document.getElementById('get'),
+	    delBtn=document.getElementById('del');
+
+	// 插入元素
+	function insertItem(name,i) {
+	        var obj={};
+	        obj.name=name;
+	        if(i<0||i>sqList.length) {
+	            result.innerHTML+="<br>非法的索引位置"+i+"<br>";
+	        }
+	        else {
+	            for(var j=sqList.length-1;j>=i;j--) {
+	                sqList[j+1]=sqList[j];
+	            }
+	            sqList[i]=obj;
+	            result.innerHTML+="<br>从索引"+i+"处插入一个元素<br>"+JSON.stringify(sqList);
+	        }
+	    }
+
+	// 获取元素
+	function getItem(index){
+	        if(index<0||index>sqList.length){
+	            result.innerHTML+="<br>非法的索引位置"+i+"<br>";
+	    }
+	        for(var k=0;k<sqList.length;k++){
+	            if(k==index){
+	                result.innerHTML+="<br>获取索引为"+index+"的元素:<br>"+JSON.stringify(sqList[k]);
+	                break;
+	            }
+	        }
+	    }
+
+	// 删除元素
+	function deleteItem(index){
+	        var delObj=sqList[index];
+	        if(sqList.length==0){
+	            result.innerHTML+="<br>线性表为空";
+	            return;
+	        }
+	        if(index<0||index>sqList.length-1){
+	            result.innerHTML+="<br>非法的索引位置"+i+"<br>";
+	            return;
+	        }
+	        //如果删除的不是最后一个元素
+	          else if(index<sqList.length-1){
+	            for(var i=index;i<sqList.length-1;i++){
+	              sqList[i]=sqList[i+1];
+
+	            }
+	        }
+	            sqList.length--;
+	        result.innerHTML+="<br>删除的元素:<br>"+JSON.stringify(delObj)+"<br>被删除后的顺序表:<br>"+JSON.stringify(sqList);
+
+	    }
+
+	// 插入调用
+	insert.onclick=function(){
+	    var name=document.getElementById("name").value,
+	    index=document.getElementById("index").value;
+	    insertItem(name,index);
+	    }
+	// 获取调用
+	getBtn.onclick=function(){
+	    var index=document.getElementById("index").value;
+	    getItem(index);
+	}
+
+	// 删除调用
+	delBtn.onclick=function(){
+	    var index=parseInt(document.getElementById("index").value);
+	    deleteItem(index);
+	}
+
+	</script>
+</body>
+</html>

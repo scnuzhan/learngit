@@ -1,0 +1,177 @@
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>数据结构单链表JavaScript描述</title>
+   <link rel="stylesheet" href="css/styles.css">
+   <style>
+   p.content {
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      padding-left: 10px;
+   }
+   div.insertcity1 {
+      margin-top: 12px;
+      padding: 10px;
+   }
+   div.insertcity2 {
+      padding: 10px;
+   }
+   div.deletecity {
+      padding: 10px;
+   }
+   div.button {
+      margin-left: 70px;
+   }
+   div.button input {
+      margin: 0 10px;
+   }
+   div.deletecity {
+      margin-top: 20px;
+   }
+
+
+   </style>
+</head>
+<body>
+   <header>
+      <h1>数据结构作业（JavaScript描述）</h1>
+   </header>
+
+   <aside class="sidebar">
+      <nav class="clear">
+         <ul>
+            <li><a href="file:///C:/Users/zhan/Desktop/d&s/Queue_JavaScript.html">顺序存储操作</a></li>
+            <li><a href="file:///C:/Users/zhan/Desktop/d&s/LList_JavaScript.html">单链表操作</a></li>
+            <li><a href="file:///C:/Users/zhan/Desktop/d&s/DLList_JavaScript.html">双链表操作</a></li>
+         </ul>
+      </nav>
+      <h2>单链表基本操作</h2>
+      <p class="content">链表中原始数据为：</p>
+      <p class="content">"北京""上海""广州""深圳""杭州"</p>
+      <div class="insertcity1">
+         <label for="precity">插入位置</label>
+         <input type="text" id="precity" placeholder="头节点为head">
+      </div>
+      <div class="insertcity2">
+         <label for="incity">城市名称</label>
+         <input type="text" id="incity" placeholder="广州">
+      </div>
+      <div class="button">
+         <input type="button" value="插入" id="insertbutton">
+          <input type="button" value="显示链表" id="showbutton1">
+      </div>
+      <div class="deletecity">
+         <label for="decity">城市名称</label>
+         <input type="text" id="decity" placeholder="广州">
+      </div>
+      <div class="button">
+         <input type="button" value="删除" id="deletebutton">
+          <input type="button" value="显示链表" id="showbutton2">
+      </div>
+   </aside>
+   <main>
+      <h3>结果：</h3>
+      <p id="result"></p>
+   </mian>
+
+   <footer>
+      <p>詹前壕&copy;</p>
+   </footer>
+
+
+   <script>
+      function Node(element) {
+         this.element = element;
+         this.next = null;
+      }
+
+      function LList() {
+         this.head = new Node("head");
+         this.find = find;
+         this.insert = insert;
+         this.display = display;
+         this.findPrevious = findPrevious;
+         this.remove = remove;
+      }
+
+      function remove(item) {
+         var prevNode = this.findPrevious(item);
+         if (!(prevNode.next == null)) {
+             prevNode.next = prevNode.next.next;
+         }
+      }
+
+      function findPrevious(item) {
+         var currNode = this.head;
+         while (!(currNode.next == null) && 
+                 (currNode.next.element != item)) {
+            currNode = currNode.next;
+         }
+         return currNode;
+      }
+
+      function display() {
+         var currNode = this.head;
+         result.innerHTML += "当前链表数据：";
+         while (!(currNode.next == null)) {
+            result.innerHTML += JSON.stringify(currNode.next.element);
+            currNode = currNode.next;
+         }
+         result.innerHTML += "<br>";
+      }
+
+      function find(item) {
+         var currNode = this.head;
+         while (currNode.element != item) {
+            currNode = currNode.next;
+         }
+         return currNode;
+      }
+
+      function insert(newElement, item) {
+         var newNode = new Node(newElement);
+         var current = this.find(item);
+         newNode.next = current.next;
+         current.next = newNode;
+      }
+         
+
+      var cities = new LList();
+      cities.insert("北京", "head");
+      cities.insert("上海", "北京");
+      cities.insert("广州", "上海");
+      cities.insert("深圳", "广州");
+      cities.insert("杭州","深圳");
+
+
+      var insert=document.getElementById('insertbutton'),
+      delBtn=document.getElementById('deletebutton'),
+      getBtn1=document.getElementById('showbutton1'),
+      getBtn2=document.getElementById('showbutton2'),
+      result=document.getElementById('result');
+
+
+      insertbutton.onclick=function(){
+         var item=document.getElementById("precity").value;
+         var newElement=document.getElementById("incity").value;
+         cities.insert(newElement, item);
+      }
+
+      getBtn1.onclick=function(){
+         cities.display()
+      }
+      getBtn2.onclick=function(){
+         cities.display()
+      }
+
+      delBtn.onclick=function(){
+         var item=document.getElementById('decity').value;
+         cities.remove(item);
+      }
+
+
+
+   </script>
+</body>
+</html>
